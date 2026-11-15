@@ -38,6 +38,10 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Vehicle> vehicles = new ArrayList<>();
 
+    // historia kontaktów: drugi koniec relacji CustomerContact.customer
+    @OneToMany(mappedBy = "customer")
+    private List<CustomerContact> contacts = new ArrayList<>();
+
     protected Customer() {
     }
 
@@ -81,5 +85,9 @@ public class Customer {
 
     public List<Vehicle> getVehicles() {
         return vehicles;
+    }
+
+    public List<CustomerContact> getContacts() {
+        return contacts;
     }
 }

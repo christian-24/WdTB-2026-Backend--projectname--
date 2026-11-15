@@ -29,6 +29,15 @@ insert into vehicle (plate_number, make, model, production_year, color, customer
     ('DWR 77TS',  'Tesla',  'Model 3',  2024, 'perłowy biały', 4),
     ('DSW 40210', 'Toyota', 'Corolla',  2019, 'czerwony',      2);
 
+-- ===== LAB 03 · customer_contact =====
+-- customer_id: klient z sekcji customer; user_account_id: kto kontaktował (5 Krystian, 6 Adrian, 7 Wiktor)
+insert into customer_contact (contacted_at, channel, subject, note, follow_up_on, customer_id, user_account_id) values
+    ('2026-11-04 16:30:00', 'PHONE',     'Auto gotowe do odbioru',            'Odbiór dziś do 18:00',                     null,         1, 5),
+    ('2026-11-10 10:15:00', 'EMAIL',     'Oferta na ceramikę dla floty',      'Wycena dla 2 kolejnych Octavii, rabat 10%', '2026-11-24', 3, 6),
+    ('2026-11-12 12:40:00', 'PHONE',     'Odwołanie prania tapicerki',        'Klient zadzwoni po nowy termin',           '2026-11-26', 3, 6),
+    ('2026-11-13 09:05:00', 'INSTAGRAM', 'Pytanie o folię PPF na przód',      'Wysłano zdjęcia realizacji i cennik',      null,         4, 7),
+    ('2026-11-14 18:20:00', 'SMS',       'Potwierdzenie terminu 20.11 10:00', null,                                       '2026-11-19', 2, null);
+
 -- ===== LAB 02 · service_offering =====
 insert into service_offering (name, category, base_price, duration_minutes, warranty_months, active) values
     ('Mycie detailingowe premium',        'WASH',      180.00,  120, null, true),
