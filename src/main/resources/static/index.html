@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Backend działa · WdTB-2026-Backend</title>
+<title>Detailing CRM · WdTB-2026-Backend-detailing</title>
 <style>
   :root { --ink: #141e50; --blue: #006efa; --muted: #5b6685; --line: #d5def0; --bg: #f5f8fd; --tint: #e8f0ff; --ok: #1d7a4c; }
   * { box-sizing: border-box; }
@@ -46,16 +46,17 @@
   <!-- LAB 01: wizytówka Waszego projektu, na jej podstawie prezentujecie projekt na początku LAB 02.
        Zastąpcie wszystkie znaczniki „uzupełnij” w nawiasach kwadratowych (reguła R1.04). -->
   <section class="card project">
-    <h2>[uzupełnij: nazwa projektu]</h2>
-    <p class="pitch">[uzupełnij: jedno zdanie – jaki problem rozwiązuje aplikacja i dla kogo]</p>
+    <h2>Detailing CRM</h2>
+    <p class="pitch">Studio detailingu samochodowego zapisuje klientów przez telefon i Instagram, a grafik prowadzi w zeszycie. Aplikacja zbiera klientów, ich auta, zlecenia, cennik usług i gwarancje powłok w jednym miejscu.</p>
     <table>
       <tr><td>Autorzy</td><td>[uzupełnij: imiona i nazwiska, grupa]</td></tr>
-      <tr><td>Dla kogo</td><td>[uzupełnij: persona, np. „Anna, właścicielka kawiarni, chce przyjmować rezerwacje stolików online”]</td></tr>
-      <tr><td>Najważniejsze funkcje</td><td>[uzupełnij: 3 funkcje, np. lista stolików, rezerwacja, raport dla właściciela]</td></tr>
+      <tr><td>Dla kogo</td><td>Kamil, właściciel studia detailingu z 3 stanowiskami i 2 pracownikami, chce widzieć grafik zleceń, przychody i klientów, którym trzeba przypomnieć o przeglądzie powłoki.</td></tr>
+      <tr><td>Najważniejsze funkcje</td><td>kartoteka klientów i ich aut; zlecenia z cyklem życia (nowe → potwierdzone → w realizacji → gotowe → odebrane) i grafikiem stanowisk; raporty przychodów oraz przypomnienia o przeglądach powłok ceramicznych.</td></tr>
     </table>
     <h3>Zmiany w projekcie</h3>
     <ul>
-      <li><b>LAB 01:</b> [uzupełnij: co zmieniliście, np. nazwa projektu, konta zespołu, wizytówka]</li>
+      <li><b>LAB 01:</b> nazwa projektu <code>detailing</code> (pakiet <code>pl.wsb.detailing</code>, artifactId), wersja z numerami indeksów, konta zespołu w <code>data.sql</code>, wizytówka.</li>
+      <li><b>LAB 02:</b> encje i dane startowe w tabelach <code>customer</code> (klienci, dane kontaktowe jako <code>@Embeddable</code>), <code>service_offering</code> (cennik usług z kategorią enum) i <code>work_order</code> (zlecenia ze statusem enum i terminem jako <code>@Embeddable</code>).</li>
     </ul>
     <p class="muted">Na kolejnych laboratoriach dopisujcie tu kolejne punkty.</p>
   </section>
