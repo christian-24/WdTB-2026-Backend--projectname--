@@ -57,6 +57,7 @@
     <ul>
       <li><b>LAB 01:</b> nazwa projektu <code>detailing</code> (pakiet <code>pl.wsb.detailing</code>, artifactId), wersja z numerami indeksów, konta zespołu w <code>data.sql</code>, wizytówka.</li>
       <li><b>LAB 02:</b> encje i dane startowe w tabelach <code>customer</code> (klienci, dane kontaktowe jako <code>@Embeddable</code>), <code>service_offering</code> (cennik usług z kategorią enum) i <code>work_order</code> (zlecenia ze statusem enum i terminem jako <code>@Embeddable</code>).</li>
+      <li><b>LAB 03:</b> skończony schemat: nowe tabele <code>vehicle</code> (auta klienta), <code>work_order_item</code> (wiele-do-wielu zlecenie ↔ usługa z ceną i rabatem) i <code>coating_warranty</code> (gwarancja powłoki, jeden-do-jednego ze zleceniem); zlecenie wskazuje auto i detailera (<code>user_account</code>); relacje LAZY, repozytorium zleceń z zapytaniami przez relacje, diagram w <code>SCHEMAT.md</code>.</li>
     </ul>
     <p class="muted">Na kolejnych laboratoriach dopisujcie tu kolejne punkty.</p>
   </section>

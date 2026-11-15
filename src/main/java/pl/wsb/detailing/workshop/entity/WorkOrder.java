@@ -1,13 +1,14 @@
 package pl.wsb.detailing.workshop.entity;
 
 import jakarta.persistence.*;
+import pl.wsb.detailing.account.domain.UserAccount;
+import pl.wsb.detailing.customer.entity.Vehicle;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Zlecenie: auto klienta przyjęte na stanowisko w danym terminie.
- * Klient, auto i usługi dojdą jako relacje na LAB 03.
- */
+/** Zlecenie: auto klienta przyjęte na stanowisko w danym terminie, z listą usług z cennika. */
 @Entity
 @Table(name = "work_order")
 public class WorkOrder {
@@ -38,11 +39,25 @@ public class WorkOrder {
     @Embedded
     private TimeSlot slot;
 
+    // które auto: wiele zleceń → jedno auto (klienta znamy przez auto)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    private Vehicle vehicle;
+
+    // detailer prowadzący zlecenie (konto pracownika); puste, dopóki nikt go nie przejął
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_account_id")
+    private UserAccount assignedTo;
+
+    // pozycje zlecenia: drugi koniec relacji WorkOrderItem.workOrder
+    @OneToMany(mappedBy = "workOrder")
+    private List<WorkOrderItem> items = new ArrayList<>();
+
     protected WorkOrder() {
     }
 
     public WorkOrder(String orderNumber, WorkOrderStatus status, Integer bayNumber, BigDecimal totalPrice,
-                     BigDecimal deposit, String notes, TimeSlot slot) {
+                     BigDecimal deposit, String notes, TimeSlot slot, Vehicle vehicle, UserAccount assignedTo) {
         this.orderNumber = orderNumber;
         this.status = status;
         this.bayNumber = bayNumber;
@@ -50,6 +65,8 @@ public class WorkOrder {
         this.deposit = deposit;
         this.notes = notes;
         this.slot = slot;
+        this.vehicle = vehicle;
+        this.assignedTo = assignedTo;
     }
 
     public Long getId() {
@@ -82,5 +99,17 @@ public class WorkOrder {
 
     public TimeSlot getSlot() {
         return slot;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public UserAccount getAssignedTo() {
+        return assignedTo;
+    }
+
+    public List<WorkOrderItem> getItems() {
+        return items;
     }
 }

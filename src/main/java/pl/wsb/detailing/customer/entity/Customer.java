@@ -3,6 +3,8 @@ package pl.wsb.detailing.customer.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Klient studia: osoba prywatna albo firma z flotą aut. */
 @Entity
@@ -31,6 +33,10 @@ public class Customer {
 
     @Embedded
     private ContactInfo contact;
+
+    // auta klienta: drugi koniec relacji Vehicle.customer (nie tworzy kolumny)
+    @OneToMany(mappedBy = "customer")
+    private List<Vehicle> vehicles = new ArrayList<>();
 
     protected Customer() {
     }
@@ -71,5 +77,9 @@ public class Customer {
 
     public ContactInfo getContact() {
         return contact;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 }

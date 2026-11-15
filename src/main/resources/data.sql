@@ -20,6 +20,15 @@ insert into customer (full_name, company_name, source, registered_on, marketing_
     ('Tomasz Lewandowski','TL Transport sp. z o.o.','FLEET',    '2026-10-02', true,  '713456789', 'flota@tltransport.example.com'),
     ('Paulina Kamińska',  null,                    'GOOGLE',    '2026-10-21', true,  '604567890', 'paulina.k@example.com');
 
+-- ===== LAB 03 · vehicle =====
+-- customer_id: numer klienta z sekcji customer (1 Marek, 2 Katarzyna, 3 TL Transport, 4 Paulina)
+insert into vehicle (plate_number, make, model, production_year, color, customer_id) values
+    ('DW 1234A',  'BMW',    '330i',     2021, 'czarny',        1),
+    ('DW 5K821',  'Skoda',  'Octavia',  2023, 'srebrny',       3),
+    ('DW 5K822',  'Skoda',  'Octavia',  2023, 'biały',         3),
+    ('DWR 77TS',  'Tesla',  'Model 3',  2024, 'perłowy biały', 4),
+    ('DSW 40210', 'Toyota', 'Corolla',  2019, 'czerwony',      2);
+
 -- ===== LAB 02 · service_offering =====
 insert into service_offering (name, category, base_price, duration_minutes, warranty_months, active) values
     ('Mycie detailingowe premium',        'WASH',      180.00,  120, null, true),
@@ -29,9 +38,31 @@ insert into service_offering (name, category, base_price, duration_minutes, warr
     ('Pranie tapicerki i czyszczenie skór','INTERIOR',  450.00,  240, null, false);
 
 -- ===== LAB 02 · work_order =====
-insert into work_order (order_number, status, bay_number, total_price, deposit, notes, starts_at, ends_at) values
-    ('ZL/2026/11/001', 'PICKED_UP',   1, 2380.00, 500.00, 'BMW 330i, lakier czarny, rysy na masce',  '2026-11-03 08:00:00', '2026-11-04 16:00:00'),
-    ('ZL/2026/11/002', 'IN_PROGRESS', 2,  900.00, null,   'Skoda Octavia flotowa',                     '2026-11-14 09:00:00', '2026-11-14 17:00:00'),
-    ('ZL/2026/11/003', 'CONFIRMED',   3, 4500.00, 1000.00,'Tesla Model 3, folia na przód',             '2026-11-18 08:00:00', '2026-11-19 16:00:00'),
-    ('ZL/2026/11/004', 'NEW',         1,  180.00, null,   null,                                        '2026-11-20 10:00:00', '2026-11-20 12:00:00'),
-    ('ZL/2026/11/005', 'CANCELLED',   2,  450.00, null,   'Klient odwołał telefonicznie',              '2026-11-12 13:00:00', '2026-11-12 17:00:00');
+-- vehicle_id: numer auta z sekcji vehicle; user_account_id: detailer (5 Krystian, 6 Adrian, 7 Wiktor), null = nieprzydzielone
+insert into work_order (order_number, status, bay_number, total_price, deposit, notes, starts_at, ends_at, vehicle_id, user_account_id) values
+    ('ZL/2026/11/001', 'PICKED_UP',   1, 2380.00,  500.00, 'Rysy na masce, ceramika całego auta', '2026-11-03 08:00:00', '2026-11-04 16:00:00', 1, 5),
+    ('ZL/2026/11/002', 'IN_PROGRESS', 2,  900.00,    null, 'Auto flotowe, ślady po myjni',          '2026-11-14 09:00:00', '2026-11-14 17:00:00', 2, 6),
+    ('ZL/2026/11/003', 'CONFIRMED',   3, 4500.00, 1000.00, 'Folia na przód',                         '2026-11-18 08:00:00', '2026-11-19 16:00:00', 4, 7),
+    ('ZL/2026/11/004', 'NEW',         1,  180.00,    null, null,                                     '2026-11-20 10:00:00', '2026-11-20 12:00:00', 5, null),
+    ('ZL/2026/11/005', 'CANCELLED',   2,  450.00,    null, 'Klient odwołał telefonicznie',           '2026-11-12 13:00:00', '2026-11-12 17:00:00', 3, null),
+    ('ZL/2026/09/002', 'PICKED_UP',   3, 4500.00, 1000.00, 'Folia PPF na przód przed sezonem',       '2026-09-08 08:00:00', '2026-09-09 16:00:00', 1, 5),
+    ('ZL/2026/10/003', 'PICKED_UP',   2, 1980.00,    null, 'Ceramika, rabat flotowy 10%',            '2026-10-06 08:00:00', '2026-10-07 16:00:00', 3, 6);
+
+-- ===== LAB 03 · work_order_item =====
+-- wiele-do-wielu zlecenie ↔ usługa; service_offering_id: 1 mycie, 2 korekta, 3 ceramika, 4 PPF, 5 wnętrze
+insert into work_order_item (work_order_id, service_offering_id, quantity, unit_price, discount_percent) values
+    (1, 3, 1, 2200.00,  0),
+    (1, 1, 1,  180.00,  0),
+    (2, 2, 1,  900.00,  0),
+    (3, 4, 1, 4500.00,  0),
+    (4, 1, 1,  180.00,  0),
+    (5, 5, 1,  450.00,  0),
+    (6, 4, 1, 4500.00,  0),
+    (7, 3, 1, 2200.00, 10);
+
+-- ===== LAB 03 · coating_warranty =====
+-- jedno zlecenie → najwyżej jedna gwarancja (work_order_id unikalne)
+insert into coating_warranty (certificate_number, product_name, valid_from, valid_until, next_inspection_on, work_order_id) values
+    ('GW/2026/0007', 'Gtechniq Crystal Serum Ultra', '2026-11-04', '2029-11-04', '2027-11-04', 1),
+    ('GW/2026/0003', 'XPEL Ultimate Plus (PPF)',     '2026-09-09', '2031-09-09', '2027-09-09', 6),
+    ('GW/2026/0005', 'Gtechniq Crystal Serum Ultra', '2026-10-07', '2029-10-07', '2027-10-07', 7);
