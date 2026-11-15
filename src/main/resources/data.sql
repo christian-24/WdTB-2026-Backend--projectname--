@@ -7,9 +7,11 @@ insert into user_account (email, display_name, role, created_at) values
     ('firma@example.com',       'Firma', 'PARTNER', current_timestamp),
     ('admin@example.com',       'Admin', 'ADMIN',   current_timestamp);
 
--- LAB 01: Wasze konta (zmieńcie na swoje dane, rola USER)
--- insert into user_account (email, display_name, role, created_at) values
---     ('imie.nazwisko@student.merito.pl', 'Imię', 'USER', current_timestamp);
+-- LAB 01: konta zespołu
+insert into user_account (email, display_name, role, created_at) values
+    ('wrx81871@student.wroclaw.merito.pl', 'Krystian Stryjakiewicz', 'USER', current_timestamp),
+    ('wrx81906@student.wroclaw.merito.pl', 'Adrian Misztal',         'USER', current_timestamp),
+    ('wrx81958@student.wroclaw.merito.pl', 'Wiktor Mayer',           'USER', current_timestamp);
 
 -- ===== LAB 02 · customer =====
 insert into customer (full_name, company_name, source, registered_on, marketing_consent, phone, email) values
